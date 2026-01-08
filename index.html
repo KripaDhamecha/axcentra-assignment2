@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Digital Clock & Countdown ⏳</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#1d2671,#c33764);
+  color:white;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.container{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  padding:40px 50px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+
+h1{
+  margin-bottom:15px;
+  font-size:32px;
+}
+
+/* 🕒 Digital Clock */
+.clock{
+  font-size:48px;
+  letter-spacing:4px;
+  margin:20px 0;
+  font-weight:bold;
+}
+
+/* ⏳ Countdown */
+.countdown{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  margin-top:25px;
+}
+
+.box{
+  background:rgba(0,0,0,0.35);
+  padding:15px 18px;
+  border-radius:14px;
+  min-width:80px;
+}
+
+.box span{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.box p{
+  margin:5px 0 0;
+  font-size:14px;
+  opacity:0.8;
+}
+
+.note{
+  margin-top:20px;
+  font-size:14px;
+  opacity:0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>⏰ Digital Clock</h1>
+  <div class="clock" id="clock">00:00:00</div>
+
+  <h1>🎉 New Year Countdown</h1>
+  <div class="countdown">
+    <div class="box"><span id="days">0</span><p>Days</p></div>
+    <div class="box"><span id="hours">0</span><p>Hours</p></div>
+    <div class="box"><span id="minutes">0</span><p>Minutes</p></div>
+    <div class="box"><span id="seconds">0</span><p>Seconds</p></div>
+  </div>
+
+  <div class="note">Live time & countdown using JavaScript</div>
+</div>
+
+<script>
+/* 🕒 DIGITAL CLOCK */
+function updateClock(){
+  const now = new Date();
+  let h = now.getHours().toString().padStart(2,"0");
+  let m = now.getMinutes().toString().padStart(2,"0");
+  let s = now.getSeconds().toString().padStart(2,"0");
+  document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock,1000);
+updateClock();
+
+/* ⏳ COUNTDOWN TIMER */
+const newYear = new Date(new Date().getFullYear()+1,0,1);
+
+function updateCountdown(){
+  const now = new Date();
+  const diff = newYear - now;
+
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff / (1000*60*60)) % 24);
+  const m = Math.floor((diff / (1000*60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("days").textContent = d;
+  document.getElementById("hours").textContent = h;
+  document.getElementById("minutes").textContent = m;
+  document.getElementById("seconds").textContent = s;
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
